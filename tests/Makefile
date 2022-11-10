@@ -14,7 +14,7 @@ filterTests.o: directories filterTests.cpp ../include/filters.hpp
 	g++ -std=c++11 -c filterTests.cpp -o ./test-build/filterTests.o
 
 directories: 
-	mkdir test-build
+	mkdir -p test-build
 
 clean:
 	rm -rf ./test-build/* test-app

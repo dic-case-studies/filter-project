@@ -11,7 +11,7 @@ filters.o: directories ./src/filters.cpp ./include/helpers.hpp
 	g++ -std=c++11 -c ./src/filters.cpp -o ./build/filters.o
 
 directories: 
-	mkdir build
+	mkdir -p build
 
 clean:
 	rm -rf ./build/* app

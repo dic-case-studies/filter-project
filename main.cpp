@@ -39,7 +39,7 @@ int main(int argc, char const *argv[])
     }
     
     
-    float* output;
+    vector<float> output;
     
     auto start = chrono::high_resolution_clock::now();
     output = filter(inputSize, filterSize, input, &averageFilter);
@@ -48,7 +48,6 @@ int main(int argc, char const *argv[])
     auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
     
     cout << "The time taken for average filter is: " << duration.count() << endl;
-    
     
     start = chrono::high_resolution_clock::now();
     output = filter(inputSize, filterSize, input, &medianFilter);

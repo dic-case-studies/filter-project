@@ -1,6 +1,8 @@
 
 #include "../include/filters.hpp"
 #include <assert.h>
+#include <vector>
+using namespace std;
 
 void shouldReturnAverageFilteredValuesWhenInputIsProvided()
 {
@@ -12,7 +14,7 @@ void shouldReturnAverageFilteredValuesWhenInputIsProvided()
     float input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float expectedOutput[] = {3, 4, 5, 6, 7, 8};
 
-    float *output;
+    vector<float> output;
     output = filter(inputSize, filterSize, input, averageFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
@@ -20,7 +22,6 @@ void shouldReturnAverageFilteredValuesWhenInputIsProvided()
         assert(output[i] == expectedOutput[i]);
     }
 
-    delete[] output;
 }
 
 void shouldReturnMedianFilteredValuesWhenInputIsProvided()
@@ -33,7 +34,7 @@ void shouldReturnMedianFilteredValuesWhenInputIsProvided()
     float input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float expectedOutput[] = {3, 4, 5, 6, 7, 8};
 
-    float *output;
+    vector<float> output;
     output = filter(inputSize, filterSize, input, medianFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
@@ -41,7 +42,6 @@ void shouldReturnMedianFilteredValuesWhenInputIsProvided()
         assert(output[i] == expectedOutput[i]);
     }
 
-    delete[] output;
 }
 
 void shouldThrowErrorWhenFilterSizeIsGreaterThanInputSize()
@@ -99,7 +99,7 @@ void shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided()
     float input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float expectedOutput[] = {1.2, 2, 3, 4, 5, 6, 7, 8, 6.8 , 5.4 };
 
-    float *output;
+    vector<float> output;
     output = filter(inputSize, filterSize, input, paddedAverageFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
@@ -107,7 +107,6 @@ void shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided()
         assert(output[i] == expectedOutput[i]);
     }
 
-    delete[] output;
 }
 
 void shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided(){
@@ -119,7 +118,7 @@ void shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided(){
     float input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float expectedOutput[] = {1, 2, 3, 4, 5, 6, 7, 8 , 8, 8};
 
-    float *output;
+    vector<float> output;
     output = filter(inputSize, filterSize, input, paddedMedianFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
@@ -127,6 +126,5 @@ void shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided(){
         assert(output[i] == expectedOutput[i]);
     }
 
-    delete[] output;
 }
 
