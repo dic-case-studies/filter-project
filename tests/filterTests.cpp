@@ -12,8 +12,9 @@ void shouldReturnAverageFilteredValuesWhenInputIsProvided()
     inputSize = 10;
     filterSize = 5;
 
-    float input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float expectedOutput[] = {3, 4, 5, 6, 7, 8};
+
+    vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     vector<float> output;
     output = filter(input, inputSize, filterSize, averageFilter);
@@ -32,8 +33,9 @@ void shouldReturnMedianFilteredValuesWhenInputIsProvided()
     inputSize = 10;
     filterSize = 5;
 
-    float input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float expectedOutput[] = {3, 4, 5, 6, 7, 8};
+
+    vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     vector<float> output;
     output = filter(input, inputSize, filterSize, medianFilter);
@@ -52,7 +54,7 @@ void shouldThrowErrorWhenFilterSizeIsGreaterThanInputSize()
     inputSize = 9;
     filterSize = 20;
 
-    float input[] = {2, 4, 6, 8, 1, 3, 5, 7, 9};
+    vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     bool invalidArgumentExceptionThrown = false;
     try
@@ -74,7 +76,7 @@ void shouldThrowErrorWhenFilterSizeIsLessThanOrEqualToZero()
     inputSize = 9;
     filterSize = 0;
 
-    float input[] = {2, 4, 6, 8, 1, 3, 5, 7, 9};
+    vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     bool invalidArgumentExceptionThrown = false;
     try
@@ -97,7 +99,7 @@ void shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided()
     inputSize = 10;
     filterSize = 5;
 
-    float input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float expectedOutput[] = {1.2, 2, 3, 4, 5, 6, 7, 8, 6.8 , 5.4 };
 
     vector<float> output;
@@ -116,7 +118,7 @@ void shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided(){
     inputSize = 10;
     filterSize = 5;
 
-    float input[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     float expectedOutput[] = {1, 2, 3, 4, 5, 6, 7, 8 , 8, 8};
 
     vector<float> output;

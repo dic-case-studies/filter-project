@@ -27,13 +27,13 @@ int main(int argc, char const *argv[])
 
     outputSize = inputSize - filterSize + 1;
 
-    float input[inputSize];
+    vector<float> input(inputSize);
     int lowerLimit = 10;
     int upperLimit = 100;
     srand((unsigned)time(0));
     for (int i = 0; i < inputSize; i++)
     {
-        input[i] = generateRandomNumberInRange(lowerLimit, upperLimit);
+        input.push_back(generateRandomNumberInRange(lowerLimit, upperLimit));
     }
 
     vector<float> output;

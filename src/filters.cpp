@@ -12,7 +12,7 @@
 
 using namespace std;
 
-vector<float> filter(float *values, int inputSize, int filterSize,  vector<float> (*filterFunction)(float *, int, int))
+vector<float> filter(vector<float> values, int inputSize, int filterSize,  vector<float> (*filterFunction)(vector<float>, int, int))
 {
     // if (filterSize > inputSize)
     //     throw std::invalid_argument("filterSize should be less than or equal to inputSize\n");
@@ -24,7 +24,7 @@ vector<float> filter(float *values, int inputSize, int filterSize,  vector<float
     return filterFunction(values, inputSize, filterSize);
 }
 
-vector<float> averageFilter(float *values, int inputSize, int filterSize)
+vector<float> averageFilter(vector<float> values, int inputSize, int filterSize)
 {
     int outputSize = inputSize - filterSize + 1;
     vector<float> output(outputSize);
@@ -48,7 +48,7 @@ vector<float> averageFilter(float *values, int inputSize, int filterSize)
     return output;
 }
 
-vector<float> paddedAverageFilter(float *values, int inputSize, int filterSize)
+vector<float> paddedAverageFilter(vector<float> values, int inputSize, int filterSize)
 {
     assert((filterSize % 2) != 0);
 
@@ -88,7 +88,7 @@ vector<float> paddedAverageFilter(float *values, int inputSize, int filterSize)
     return output;
 }
 
-vector<float> medianFilter(float *values, int inputSize, int filterSize)
+vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
 {
 
     int outputSize = inputSize - filterSize + 1;
@@ -119,7 +119,7 @@ vector<float> medianFilter(float *values, int inputSize, int filterSize)
     return output;
 }
 
-vector<float> paddedMedianFilter(float *values, int inputSize, int filterSize){
+vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filterSize){
 
     assert((filterSize % 2) != 0);
 
@@ -199,7 +199,7 @@ float findMedian(vector<float> window, int index)
 }
 
 // undestand this algorithm
-vector<float> efficientMedianFilter(float *values, int inputSize, int filterSize)
+vector<float> efficientMedianFilter(vector<float> values, int inputSize, int filterSize)
 {
 
     int outputSize = inputSize - filterSize + 1;
