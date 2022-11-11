@@ -9,8 +9,6 @@
 #include "./include/helpers.hpp"
 #include "./include/filters.hpp"
 
-using namespace std;
-
 int main(int argc, char const *argv[])
 {
     int inputSize, filterSize, outputSize;
@@ -27,7 +25,7 @@ int main(int argc, char const *argv[])
 
     outputSize = inputSize - filterSize + 1;
 
-    vector<float> input(inputSize);
+    std::vector<float> input(inputSize);
     int lowerLimit = 10;
     int upperLimit = 100;
     srand((unsigned)time(0));
@@ -36,25 +34,25 @@ int main(int argc, char const *argv[])
         input.push_back(generateRandomNumberInRange(lowerLimit, upperLimit));
     }
 
-    vector<float> output;
+    std::vector<float> output;
 
-    auto start = chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
     output = filter(input, inputSize, filterSize, &averageFilter);
-    auto stop = chrono::high_resolution_clock::now();
+    auto stop = std::chrono::high_resolution_clock::now();
 
-    auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-    cout << "The time taken for average filter is: " << duration.count() << endl;
+    std::cout << "The time taken for average filter is: " << duration.count() << std::endl;
 
-    start = chrono::high_resolution_clock::now();
+    start = std::chrono::high_resolution_clock::now();
     output = filter(input, inputSize, filterSize, &medianFilter);
-    stop = chrono::high_resolution_clock::now();
+    stop = std::chrono::high_resolution_clock::now();
 
-    duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-    cout << "The time taken for median filter is: " << duration.count() << endl;
+    std::cout << "The time taken for median filter is: " << duration.count() << std::endl;
 
-    cout << endl;
+    std::cout << std::endl;
 
     return 0;
 }
