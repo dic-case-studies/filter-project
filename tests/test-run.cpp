@@ -10,13 +10,9 @@
 #include "../include/filters.hpp"
 #include "filterTests.hpp"
 
-//g++ -std=c++11 -o outputFilter main.cpp
-
-using namespace std;
-
 int main(int argc, char const *argv[])
 {
-    cout << "performing tests ..." << endl;
+    std::cout << "performing tests ..." << std::endl;
 
     shouldReturnAverageFilteredValuesWhenInputIsProvided();
     shouldReturnMedianFilteredValuesWhenInputIsProvided();
@@ -26,7 +22,7 @@ int main(int argc, char const *argv[])
     shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided();
     shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided();
     
-    cout << endl << "all tests passed ..." << endl;
+    std::cout << std::endl << "all tests passed ..." << std::endl;
     return 0;
 }
 

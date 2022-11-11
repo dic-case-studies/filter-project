@@ -2,7 +2,7 @@
 #include "../include/filters.hpp"
 #include <assert.h>
 #include <vector>
-using namespace std;
+
 using std::vector;
 
 void shouldReturnAverageFilteredValuesWhenInputIsProvided()
