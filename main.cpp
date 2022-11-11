@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
     //    filterSize = std::atoi(argv[2]);
 
     inputSize = 10000;
-    filterSize = 10;
+    filterSize = 5;
 
     outputSize = inputSize - filterSize + 1;
 
@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
     std::vector<float> output;
 
     auto start = std::chrono::high_resolution_clock::now();
-    output = filter(input, inputSize, filterSize, &averageFilter);
+    output = filter(input, inputSize, filterSize, averageFilter);
     auto stop = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
@@ -45,7 +45,7 @@ int main(int argc, char const *argv[])
     std::cout << "The time taken for average filter is: " << duration.count() << std::endl;
 
     start = std::chrono::high_resolution_clock::now();
-    output = filter(input, inputSize, filterSize, &medianFilter);
+    output = filter(input, inputSize, filterSize, paddedMedianFilterWithStdNthElement);
     stop = std::chrono::high_resolution_clock::now();
 
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);

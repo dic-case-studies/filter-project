@@ -10,10 +10,9 @@
 
 #include "../include/helpers.hpp"
 
-// using namespace std;
 using std::vector;
 
-vector<float> filter(vector<float> values, int inputSize, int filterSize,  vector<float> (*filterFunction)(vector<float>, int, int))
+vector<float> filter(vector<float> values, int inputSize, int filterSize, vector<float> (*filterFunction)(vector<float>, int, int))
 {
     // if (filterSize > inputSize)
     //     throw std::invalid_argument("filterSize should be less than or equal to inputSize\n");
@@ -21,6 +20,7 @@ vector<float> filter(vector<float> values, int inputSize, int filterSize,  vecto
     //     throw std::invalid_argument("filterSize should be greater than zero\n");
     assert(filterSize <= inputSize);
     assert(filterSize > 0);
+    assert((filterSize % 2) != 0);
 
     return filterFunction(values, inputSize, filterSize);
 }
@@ -51,18 +51,16 @@ vector<float> averageFilter(vector<float> values, int inputSize, int filterSize)
 
 vector<float> paddedAverageFilter(vector<float> values, int inputSize, int filterSize)
 {
-    assert((filterSize % 2) != 0);
-
     int outputSize = inputSize;
     int paddedInputSize = outputSize + filterSize - 1;
     int paddingWidth = filterSize / 2;
 
-    vector <float> output(outputSize);
-    vector <float> paddedValues(paddedInputSize);
+    vector<float> output(outputSize);
+    vector<float> paddedValues(paddedInputSize);
 
     for (int i = 0; i < paddedInputSize; i++)
     {
-        if (i < paddingWidth || i >= (inputSize+paddingWidth))
+        if (i < paddingWidth || i >= (inputSize + paddingWidth))
         {
             paddedValues[i] = 0;
             continue;
@@ -85,13 +83,12 @@ vector<float> paddedAverageFilter(vector<float> values, int inputSize, int filte
         currentFilteredValue = currentFilteredValue - paddedValues[i - filterSize] + paddedValues[i];
         output[i - filterSize + 1] = currentFilteredValue / filterSize;
     }
-    
+
     return output;
 }
 
 vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
 {
-
     int outputSize = inputSize - filterSize + 1;
     vector<float> output(outputSize);
 
@@ -107,42 +104,32 @@ vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
         sort(window.begin(), window.end());
         //        insertionSort(window, filterSize);
 
-        if (filterSize % 2 != 0)
-        {
-            output[i] = window[filterSize / 2];
-        }
-        else
-        {
-            output[i] = (window[filterSize / 2] + window[filterSize / 2 - 1]) / 2;
-        }
+        output[i] = window[filterSize / 2];
     }
 
     return output;
 }
 
-vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filterSize){
-
-    assert((filterSize % 2) != 0);
-
+vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filterSize)
+{
     int outputSize = inputSize;
     int paddedInputSize = outputSize + filterSize - 1;
     int paddingWidth = filterSize / 2;
 
     vector<float> output(outputSize);
-    vector <float> paddedValues(paddedInputSize);
+    vector<float> paddedValues(paddedInputSize);
 
-    float window[filterSize];
+    vector<float> window(filterSize);
 
     for (int i = 0; i < paddedInputSize; i++)
     {
-        if (i < paddingWidth || i >= (inputSize+paddingWidth))
+        if (i < paddingWidth || i >= (inputSize + paddingWidth))
         {
             paddedValues[i] = 0;
             continue;
         }
         paddedValues[i] = values[i - paddingWidth];
     }
-
 
     for (int i = 0; i < outputSize; i++)
     {
@@ -151,17 +138,46 @@ vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filter
             window[j] = paddedValues[i + j];
         }
 
-        std::sort(window, window + filterSize);
-        //        insertionSort(window, filterSize);
+        sort(window.begin(), window.end());
+        // insertionSort(window, filterSize);
 
-        if (filterSize % 2 != 0)
+        output[i] = window[filterSize / 2];
+    }
+
+    return output;
+}
+
+vector<float> paddedMedianFilterWithStdNthElement(vector<float> values, int inputSize, int filterSize)
+{
+    int outputSize = inputSize;
+    int paddedInputSize = outputSize + filterSize - 1;
+    int paddingWidth = filterSize / 2;
+
+    vector<float> output(outputSize);
+    vector<float> paddedValues(paddedInputSize);
+
+    vector<float> window(filterSize);
+
+    for (int i = 0; i < paddedInputSize; i++)
+    {
+        if (i < paddingWidth || i >= (inputSize + paddingWidth))
         {
-            output[i] = window[filterSize / 2];
+            paddedValues[i] = 0;
+            continue;
         }
-        else
+        paddedValues[i] = values[i - paddingWidth];
+    }
+
+    for (int i = 0; i < outputSize; i++)
+    {
+        for (int j = 0; j < filterSize; j++)
         {
-            output[i] = (window[filterSize / 2] + window[filterSize / 2 - 1]) / 2;
+            window[j] = paddedValues[i + j];
         }
+
+        std::nth_element(window.begin(), window.begin() + (filterSize / 2), window.end());
+        
+        output[i] = window[filterSize / 2];
     }
 
     return output;
@@ -202,7 +218,6 @@ float findMedian(vector<float> window, int index)
 // undestand this algorithm
 vector<float> efficientMedianFilter(vector<float> values, int inputSize, int filterSize)
 {
-
     int outputSize = inputSize - filterSize + 1;
     vector<float> output(outputSize);
 
@@ -214,16 +229,7 @@ vector<float> efficientMedianFilter(vector<float> values, int inputSize, int fil
         {
             window[j] = values[i + j];
         }
-
-        if (filterSize % 2 != 0)
-        {
-            output[i] = findMedian(window, filterSize / 2);
-        }
-        else
-        {
-            output[i] = 0.5 * (findMedian(window, filterSize / 2) +
-                               findMedian(window, filterSize / 2 - 1));
-        }
+        output[i] = findMedian(window, filterSize / 2);
     }
 
     return output;

@@ -15,6 +15,8 @@ std::vector<float> medianFilter(std::vector<float> values, int inputSize, int fi
 
 std::vector<float> paddedMedianFilter(std::vector<float> values, int inputSize, int filterSize);
 
+std::vector<float> paddedMedianFilterWithStdNthElement(std::vector<float> values, int inputSize, int filterSize);
+
 float findMedian(std::vector<float> window, int index);
 
 std::vector<float> efficientMedianFilter(std::vector<float> values, int inputSize, int filterSize);
