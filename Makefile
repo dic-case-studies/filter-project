@@ -1,17 +1,25 @@
-all: directories main.o helpers.o filters.o
-	g++ -O3 -std=c++11 -o app ./build/main.o ./build/helpers.o ./build/filters.o
+CXXFLAGS=-O3 -std=c++11
+CXX=g++
 
-main.o: directories main.cpp ./include/helpers.hpp ./include/filters.hpp
-	g++ -O3 -std=c++11 -c main.cpp -o ./build/main.o
+all: directories build/main.o build/helpers.o build/filters.o
+	$(CXX) $(CXXFLAGS) -o app ./build/main.o ./build/helpers.o ./build/filters.o
 
-helpers.o: directories ./src/helpers.cpp 
-	g++ -O3 -std=c++11 -c ./src/helpers.cpp -o ./build/helpers.o
+build/main.o: main.cpp ./include/helpers.hpp ./include/filters.hpp
+	$(CXX) $(CXXFLAGS) -c main.cpp -o $@
 
-filters.o: directories ./src/filters.cpp ./include/helpers.hpp
-	g++ -O3 -std=c++11 -c ./src/filters.cpp -o ./build/filters.o
+build/helpers.o: ./src/helpers.cpp 
+	$(CXX) $(CXXFLAGS) -c ./src/helpers.cpp -o $@
+
+build/filters.o: ./src/filters.cpp ./include/helpers.hpp
+	$(CXX) $(CXXFLAGS) -c ./src/filters.cpp -o $@
+
+# build/%.o: ./src/%.cpp
+# 	$(CXX) $(CXXFLAGS) -c 
 
 directories: 
 	mkdir -p build
 
 clean:
 	rm -rf ./build/* app
+
+.PHONY: clean directories all

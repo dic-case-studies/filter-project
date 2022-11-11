@@ -1,20 +1,25 @@
-all: directories test.o helpers.o filters.o filterTests.o
-	g++ -O3 -std=c++11 -o test-app ./test-build/test.o ./test-build/helpers.o ./test-build/filters.o test-build/filterTests.o
+CXXFLAGS=-O3 -std=c++11
+CXX=g++
 
-test.o: directories test.cpp ../include/helpers.hpp ../include/filters.hpp filterTests.hpp
-	g++ -O3 -std=c++11 -c test.cpp -o ./test-build/test.o
+all: directories ./test-build/test-run.o ./test-build/helpers.o ./test-build/filters.o ./test-build/filterTests.o
+	$(CXX) $(CXXFLAGS) ./test-build/test-run.o ./test-build/helpers.o ./test-build/filters.o test-build/filterTests.o -o test-app 
 
-helpers.o: directories ../src/helpers.cpp 
-	g++ -O3 -std=c++11 -c ../src/helpers.cpp -o ./test-build/helpers.o
+./test-build/test-run.o: test-run.cpp ../include/helpers.hpp ../include/filters.hpp filterTests.hpp
+	$(CXX) $(CXXFLAGS) -c test-run.cpp -o $@
 
-filters.o: directories ../src/filters.cpp ../include/helpers.hpp
-	g++ -O3 -std=c++11 -c ../src/filters.cpp -o ./test-build/filters.o
+./test-build/helpers.o: ../src/helpers.cpp 
+	$(CXX) $(CXXFLAGS) -c ../src/helpers.cpp -o $@
 
-filterTests.o: directories filterTests.cpp ../include/filters.hpp
-	g++ -O3 -std=c++11 -c filterTests.cpp -o ./test-build/filterTests.o
+./test-build/filters.o: ../src/filters.cpp ../include/helpers.hpp
+	$(CXX) $(CXXFLAGS) -c ../src/filters.cpp -o $@
+
+./test-build/filterTests.o: filterTests.cpp ../include/filters.hpp
+	$(CXX) $(CXXFLAGS) -c filterTests.cpp -o $@
 
 directories: 
 	mkdir -p test-build
 
 clean:
 	rm -rf ./test-build/* test-app
+
+.PHONY: clean directories all

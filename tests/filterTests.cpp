@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <vector>
 using namespace std;
+using std::vector;
 
 void shouldReturnAverageFilteredValuesWhenInputIsProvided()
 {
@@ -15,7 +16,7 @@ void shouldReturnAverageFilteredValuesWhenInputIsProvided()
     float expectedOutput[] = {3, 4, 5, 6, 7, 8};
 
     vector<float> output;
-    output = filter(inputSize, filterSize, input, averageFilter);
+    output = filter(input, inputSize, filterSize, averageFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
     {
@@ -35,7 +36,7 @@ void shouldReturnMedianFilteredValuesWhenInputIsProvided()
     float expectedOutput[] = {3, 4, 5, 6, 7, 8};
 
     vector<float> output;
-    output = filter(inputSize, filterSize, input, medianFilter);
+    output = filter(input, inputSize, filterSize, medianFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
     {
@@ -56,7 +57,7 @@ void shouldThrowErrorWhenFilterSizeIsGreaterThanInputSize()
     bool invalidArgumentExceptionThrown = false;
     try
     {
-        filter(inputSize, filterSize, input, averageFilter);
+        filter(input, inputSize, filterSize, averageFilter);
     }
     catch (std::invalid_argument &e)
     {
@@ -78,7 +79,7 @@ void shouldThrowErrorWhenFilterSizeIsLessThanOrEqualToZero()
     bool invalidArgumentExceptionThrown = false;
     try
     {
-        filter(inputSize, filterSize, input, averageFilter);
+        filter(input, inputSize, filterSize, averageFilter);
     }
     catch (std::invalid_argument &e)
     {
@@ -100,7 +101,7 @@ void shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided()
     float expectedOutput[] = {1.2, 2, 3, 4, 5, 6, 7, 8, 6.8 , 5.4 };
 
     vector<float> output;
-    output = filter(inputSize, filterSize, input, paddedAverageFilter);
+    output = filter(input, inputSize, filterSize, paddedAverageFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
     {
@@ -119,7 +120,7 @@ void shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided(){
     float expectedOutput[] = {1, 2, 3, 4, 5, 6, 7, 8 , 8, 8};
 
     vector<float> output;
-    output = filter(inputSize, filterSize, input, paddedMedianFilter);
+    output = filter(input, inputSize, filterSize, paddedMedianFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
     {

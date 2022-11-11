@@ -12,7 +12,7 @@
 
 using namespace std;
 
-vector<float> filter(int inputSize, int filterSize, float *values, vector<float> (*filterFunction)(int, int, float *))
+vector<float> filter(float *values, int inputSize, int filterSize,  vector<float> (*filterFunction)(float *, int, int))
 {
     // if (filterSize > inputSize)
     //     throw std::invalid_argument("filterSize should be less than or equal to inputSize\n");
@@ -21,10 +21,10 @@ vector<float> filter(int inputSize, int filterSize, float *values, vector<float>
     assert(filterSize <= inputSize);
     assert(filterSize > 0);
 
-    return filterFunction(inputSize, filterSize, values);
+    return filterFunction(values, inputSize, filterSize);
 }
 
-vector<float> averageFilter(int inputSize, int filterSize, float *values)
+vector<float> averageFilter(float *values, int inputSize, int filterSize)
 {
     int outputSize = inputSize - filterSize + 1;
     vector<float> output(outputSize);
@@ -48,7 +48,7 @@ vector<float> averageFilter(int inputSize, int filterSize, float *values)
     return output;
 }
 
-vector<float> paddedAverageFilter(int inputSize, int filterSize, float *values)
+vector<float> paddedAverageFilter(float *values, int inputSize, int filterSize)
 {
     assert((filterSize % 2) != 0);
 
@@ -88,7 +88,7 @@ vector<float> paddedAverageFilter(int inputSize, int filterSize, float *values)
     return output;
 }
 
-vector<float> medianFilter(int inputSize, int filterSize, float *values)
+vector<float> medianFilter(float *values, int inputSize, int filterSize)
 {
 
     int outputSize = inputSize - filterSize + 1;
@@ -119,7 +119,7 @@ vector<float> medianFilter(int inputSize, int filterSize, float *values)
     return output;
 }
 
-vector<float> paddedMedianFilter(int inputSize, int filterSize, float *values){
+vector<float> paddedMedianFilter(float *values, int inputSize, int filterSize){
 
     assert((filterSize % 2) != 0);
 
@@ -199,7 +199,7 @@ float findMedian(vector<float> window, int index)
 }
 
 // undestand this algorithm
-vector<float> efficientMedianFilter(int inputSize, int filterSize, float *values)
+vector<float> efficientMedianFilter(float *values, int inputSize, int filterSize)
 {
 
     int outputSize = inputSize - filterSize + 1;
