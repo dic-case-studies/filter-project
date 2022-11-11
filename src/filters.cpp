@@ -10,7 +10,8 @@
 
 #include "../include/helpers.hpp"
 
-using namespace std;
+// using namespace std;
+using std::vector;
 
 vector<float> filter(vector<float> values, int inputSize, int filterSize,  vector<float> (*filterFunction)(vector<float>, int, int))
 {
@@ -150,7 +151,7 @@ vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filter
             window[j] = paddedValues[i + j];
         }
 
-        sort(window, window + filterSize);
+        std::sort(window, window + filterSize);
         //        insertionSort(window, filterSize);
 
         if (filterSize % 2 != 0)

@@ -1,7 +1,8 @@
 
 #include <iostream>
 
-using namespace std;
+using std::cout;
+using std::endl;
 
 int generateRandomNumberInRange(int lower, int upper)
 {
