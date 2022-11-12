@@ -11,7 +11,7 @@
 
 int main(int argc, char const *argv[])
 {
-    int inputSize, filterSize, outputSize;
+    int inputSize, filterSize;
 
     // run for different values
     //    if(argc != 3)
@@ -23,8 +23,6 @@ int main(int argc, char const *argv[])
     inputSize = 10000;
     filterSize = 5;
 
-    outputSize = inputSize - filterSize + 1;
-
     std::vector<float> input(inputSize);
     int lowerLimit = 10;
     int upperLimit = 100;
@@ -34,10 +32,26 @@ int main(int argc, char const *argv[])
         input.push_back(generateRandomNumberInRange(lowerLimit, upperLimit));
     }
 
+    // for (auto it = input.begin(); it != input.end(); it++)
+    // {
+    //     std::cout << *it << " ";
+    // }
+
+    // std::cout << std::endl;
+    
+    // quickSort(input, 0, input.size() - 1);
+
+    // for (auto it = input.begin(); it != input.end(); it++)
+    // {
+    //     std::cout << *it << " ";
+    // }
+
+    // std::cout << std::endl;
+
     std::vector<float> output;
 
     auto start = std::chrono::high_resolution_clock::now();
-    output = filter(input, inputSize, filterSize, averageFilter);
+    output = filter(input, inputSize, filterSize, paddedAverageFilter);
     auto stop = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);

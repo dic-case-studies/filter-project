@@ -16,11 +16,14 @@ int main(int argc, char const *argv[])
 
     shouldReturnAverageFilteredValuesWhenInputIsProvided();
     shouldReturnMedianFilteredValuesWhenInputIsProvided();
+
     // shouldThrowErrorWhenFilterSizeIsGreaterThanInputSize();
     // shouldThrowErrorWhenFilterSizeIsLessThanOrEqualToZero();
 
     shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided();
     shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided();
+
+    shouldReturnPaddedMedianFilteredValuesWithNthSelectWhenInputIsProvided();
     
     std::cout << std::endl << "all tests passed ..." << std::endl;
     return 0;

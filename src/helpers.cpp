@@ -1,8 +1,12 @@
 
 #include <iostream>
+#include <algorithm>
+#include <vector>
+#include <iterator>
 
 using std::cout;
 using std::endl;
+using std::vector;
 
 int generateRandomNumberInRange(int lower, int upper)
 {
@@ -11,30 +15,91 @@ int generateRandomNumberInRange(int lower, int upper)
 
 void printArray(float *input, int inputSize)
 {
-    for(int i = 0; i < inputSize; i++){
+    for (int i = 0; i < inputSize; i++)
+    {
         cout << input[i] << " ";
     }
     cout << endl;
 }
 
 // implement sort function
-void insertionSort(float arr[], int n)
+void insertionSort(vector<float> vec)
 {
-    int i, key, j;
-    for (i = 1; i < n; i++)
+    for (auto it = vec.begin(); it != vec.end(); it++)
     {
-        key = arr[i];
-        j = i - 1;
- 
-        // Move elements of arr[0..i-1],
-        // that are greater than key, to one
-        // position ahead of their
-        // current position
-        while (j >= 0 && arr[j] > key)
-        {
-            arr[j + 1] = arr[j];
-            j = j - 1;
-        }
-        arr[j + 1] = key;
+        // Searching the upper bound, i.e., first
+        // element greater than *it from beginning
+        auto const insertion_point =
+            std::upper_bound(vec.begin(), it, *it);
+
+        // Shifting the unsorted part
+        std::rotate(insertion_point, it, it + 1);
     }
+}
+
+// Standard Lomuto's partition
+// vector<float>::iterator partition(vector<float> arr, vector<float>::iterator start, vector<float>::iterator back)
+// {
+//     vector<float>::iterator pivot = back;
+//     vector<float>::iterator index = start;
+
+//     for (auto it = start; it != back; ++it)
+//     {
+//         if (*it <= *pivot)
+//         {
+//             std::swap(index, it);
+//             index++;
+//         }
+//     }
+//     std::swap(index, pivot);
+//     return index;
+// }
+
+int partition(vector<float> v, int start, int end)
+{
+
+    int pivot = end;
+    int j = start;
+    for (int i = start; i < end; ++i)
+    {
+        if (v[i] < v[pivot])
+        {
+            std::swap(v[i], v[j]);
+            ++j;
+        }
+    }
+    std::swap(v[j], v[pivot]);
+    return j;
+}
+
+void quickSort(vector<float> window, int start, int end)
+{
+    if (start < end)
+    {
+        int index = partition(window, start, end);
+
+        quickSort(window, start, index - 1);
+        quickSort(window, index + 1, end);
+    }
+}
+
+// using quick select algorithm
+float findMedian(vector<float> window, int start, int back, int medianIndex)
+{
+    // Partition the array around last
+    // element and get position of pivot
+    // element in sorted array
+    int index = partition(window, start, back);
+
+    // If position is same as k
+    if (index - start == medianIndex)
+        return window[index];
+
+    // If position is more, recur
+    // for left subarray
+    if (index - start > medianIndex)
+        return findMedian(window, start, index - 1, medianIndex);
+
+    // Else recur for right subarray
+    return findMedian(window, index + 1, back, medianIndex - index + 1);
 }

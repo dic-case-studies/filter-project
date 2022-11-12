@@ -1,4 +1,4 @@
-CXXFLAGS=-O3 -std=c++11
+CXXFLAGS=-O3 -std=c++11 -Wall -g
 CXX=g++
 
 all: directories ./test-build/test-run.o ./test-build/helpers.o ./test-build/filters.o ./test-build/filterTests.o

@@ -37,8 +37,7 @@ void shouldReturnMedianFilteredValuesWhenInputIsProvided()
 
     vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    vector<float> output;
-    output = filter(input, inputSize, filterSize, medianFilter);
+    vector<float> output = filter(input, inputSize, filterSize, medianFilter);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
     {

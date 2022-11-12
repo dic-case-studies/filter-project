@@ -1,4 +1,4 @@
-CXXFLAGS=-O3 -std=c++11
+CXXFLAGS=-O3 -std=c++11 -Wall
 CXX=g++
 
 all: directories build/main.o build/helpers.o build/filters.o

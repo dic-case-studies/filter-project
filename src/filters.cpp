@@ -102,9 +102,13 @@ vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
         }
 
         sort(window.begin(), window.end());
-        //        insertionSort(window, filterSize);
+        // insertionSort(window);
+        // quickSort(window, 0, filterSize - 1);
 
         output[i] = window[filterSize / 2];
+
+        // using custom quick select 
+        // output[i] = findMedian(window, 0 , filterSize - 1, filterSize / 2);
     }
 
     return output;
@@ -139,7 +143,6 @@ vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filter
         }
 
         sort(window.begin(), window.end());
-        // insertionSort(window, filterSize);
 
         output[i] = window[filterSize / 2];
     }
@@ -176,60 +179,8 @@ vector<float> paddedMedianFilterWithStdNthElement(vector<float> values, int inpu
         }
 
         std::nth_element(window.begin(), window.begin() + (filterSize / 2), window.end());
-        
+
         output[i] = window[filterSize / 2];
-    }
-
-    return output;
-}
-
-// O(N) Median Filter
-// https://rcoh.me/posts/linear-time-median-finding/
-
-float findMedian(vector<float> window, int index)
-{
-    // TODO
-    if (window.size() <= 1)
-        return window.at(0);
-
-    int pivot = generateRandomNumberInRange(0, (unsigned)window.size());
-
-    vector<float> lows, highs, pivots;
-
-    for (int i = 0; i < window.size(); i++)
-    {
-        if (window[i] < pivot)
-            lows.push_back(window[i]);
-        else if (window[i] > pivot)
-            highs.push_back(window[i]);
-        else
-            pivots.push_back(window[i]);
-    }
-
-    if (index < lows.size())
-        return findMedian(lows, index);
-
-    if (index < lows.size() + pivots.size())
-        return pivots.at(0);
-
-    return findMedian(highs, index - (int)lows.size() - (int)pivots.size());
-}
-
-// undestand this algorithm
-vector<float> efficientMedianFilter(vector<float> values, int inputSize, int filterSize)
-{
-    int outputSize = inputSize - filterSize + 1;
-    vector<float> output(outputSize);
-
-    vector<float> window(filterSize);
-
-    for (int i = 0; i < outputSize; i++)
-    {
-        for (int j = 0; j < filterSize; j++)
-        {
-            window[j] = values[i + j];
-        }
-        output[i] = findMedian(window, filterSize / 2);
     }
 
     return output;
