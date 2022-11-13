@@ -15,7 +15,7 @@ void shouldReturnAverageFilteredValuesWhenInputIsProvided()
     inputSize = 10;
     filterSize = 5;
 
-    float expectedOutput[] = {3, 4, 5, 6, 7, 8};
+    float expectedOutput[] = {0, 0, 3, 4, 5, 6, 7, 8, 0, 0};
 
     vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
@@ -36,7 +36,7 @@ void shouldReturnMedianFilteredValuesWhenInputIsProvided()
     inputSize = 10;
     filterSize = 5;
 
-    float expectedOutput[] = {3, 4, 5, 6, 7, 8};
+    float expectedOutput[] = {0, 0 , 3, 4, 5, 6, 7, 8, 0 , 0};
 
     vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 

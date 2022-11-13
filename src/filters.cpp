@@ -27,23 +27,23 @@ vector<float> filter(vector<float> values, int inputSize, int filterSize, vector
 
 vector<float> averageFilter(vector<float> values, int inputSize, int filterSize)
 {
-    int outputSize = inputSize - filterSize + 1;
-    vector<float> output(outputSize);
+    vector<float> output(inputSize);
 
     float currentFilteredValue = 0;
+    int paddingWidth = filterSize / 2;
 
     // calculating the first filter value
     for (int i = 0; i < filterSize; i++)
     {
         currentFilteredValue += values[i];
     }
-    output[0] = currentFilteredValue / filterSize;
+    output[paddingWidth] = currentFilteredValue / filterSize;
 
     // from 2nd filter value
     for (int i = filterSize; i < inputSize; i++)
     {
         currentFilteredValue = currentFilteredValue - values[i - filterSize] + values[i];
-        output[i - filterSize + 1] = currentFilteredValue / filterSize;
+        output[i - paddingWidth] = currentFilteredValue / filterSize;
     }
 
     return output;
@@ -89,12 +89,13 @@ vector<float> paddedAverageFilter(vector<float> values, int inputSize, int filte
 
 vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
 {
-    int outputSize = inputSize - filterSize + 1;
-    vector<float> output(outputSize);
+    vector<float> output(inputSize);
+
+    int paddingWidth = filterSize / 2;
 
     vector<float> window(filterSize);
 
-    for (int i = 0; i < outputSize; i++)
+    for (int i = 0; i < (inputSize - filterSize + 1); i++)
     {
         for (int j = 0; j < filterSize; j++)
         {
@@ -105,7 +106,7 @@ vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
         // insertionSort(window);
         // quickSort(window, 0, filterSize - 1);
 
-        output[i] = window[filterSize / 2];
+        output[i + paddingWidth] = window[filterSize / 2];
 
         // using custom quick select 
         // output[i] = findMedian(window, 0 , filterSize - 1, filterSize / 2);
