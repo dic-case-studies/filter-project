@@ -3,3 +3,4 @@
 /tests/test-build
 .vscode
 *app
+/out

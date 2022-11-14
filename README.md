@@ -9,8 +9,13 @@ To build and run the project:
 
 ```sh
 make clean && make
-
 ./app
+```
+
+To genrate graphs, run:
+
+```sh
+./generateGraph.sh
 ```
 
 ## Performance
