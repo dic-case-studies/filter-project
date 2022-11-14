@@ -32,41 +32,20 @@ int main(int argc, char const *argv[])
         input.push_back(generateRandomNumberInRange(lowerLimit, upperLimit));
     }
 
-    // for (auto it = input.begin(); it != input.end(); it++)
-    // {
-    //     std::cout << *it << " ";
-    // }
-
-    // std::cout << std::endl;
-    
-    // quickSort(input, 0, input.size() - 1);
-
-    // for (auto it = input.begin(); it != input.end(); it++)
-    // {
-    //     std::cout << *it << " ";
-    // }
-
-    // std::cout << std::endl;
-
     std::vector<float> output;
 
-    auto start = std::chrono::high_resolution_clock::now();
-    output = filter(input, inputSize, filterSize, paddedAverageFilter);
-    auto stop = std::chrono::high_resolution_clock::now();
+    int n = 3;
 
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    for (int i = 0; i < n; i++)
+    {
+        auto start = std::chrono::high_resolution_clock::now();
+        auto output = filter(input, inputSize, filterSize, medianFilterWithStdNthElementFunction);
+        auto stop = std::chrono::high_resolution_clock::now();
 
-    std::cout << "The time taken for average filter is: " << duration.count() << std::endl;
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-    start = std::chrono::high_resolution_clock::now();
-    output = filter(input, inputSize, filterSize, paddedMedianFilterWithStdNthElement);
-    stop = std::chrono::high_resolution_clock::now();
-
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-
-    std::cout << "The time taken for median filter is: " << duration.count() << std::endl;
-
-    std::cout << std::endl;
+        std::cout << "The time taken for filter is: " << duration.count() << std::endl;
+    }
 
     return 0;
 }

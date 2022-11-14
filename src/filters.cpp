@@ -49,6 +49,7 @@ vector<float> averageFilter(vector<float> values, int inputSize, int filterSize)
     return output;
 }
 
+// input padded
 vector<float> paddedAverageFilter(vector<float> values, int inputSize, int filterSize)
 {
     int outputSize = inputSize;
@@ -108,13 +109,14 @@ vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
 
         output[i + paddingWidth] = window[filterSize / 2];
 
-        // using custom quick select 
+        // using custom quick select
         // output[i] = findMedian(window, 0 , filterSize - 1, filterSize / 2);
     }
 
     return output;
 }
 
+// input paded
 vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filterSize)
 {
     int outputSize = inputSize;
@@ -151,37 +153,24 @@ vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filter
     return output;
 }
 
-vector<float> paddedMedianFilterWithStdNthElement(vector<float> values, int inputSize, int filterSize)
+vector<float> medianFilterWithStdNthElementFunction(vector<float> values, int inputSize, int filterSize)
 {
-    int outputSize = inputSize;
-    int paddedInputSize = outputSize + filterSize - 1;
-    int paddingWidth = filterSize / 2;
+    vector<float> output(inputSize);
 
-    vector<float> output(outputSize);
-    vector<float> paddedValues(paddedInputSize);
+    int paddingWidth = filterSize / 2;
 
     vector<float> window(filterSize);
 
-    for (int i = 0; i < paddedInputSize; i++)
-    {
-        if (i < paddingWidth || i >= (inputSize + paddingWidth))
-        {
-            paddedValues[i] = 0;
-            continue;
-        }
-        paddedValues[i] = values[i - paddingWidth];
-    }
-
-    for (int i = 0; i < outputSize; i++)
+    for (int i = 0; i < (inputSize - filterSize + 1); i++)
     {
         for (int j = 0; j < filterSize; j++)
         {
-            window[j] = paddedValues[i + j];
+            window[j] = values[i + j];
         }
 
         std::nth_element(window.begin(), window.begin() + (filterSize / 2), window.end());
 
-        output[i] = window[filterSize / 2];
+        output[i + paddingWidth] = window[filterSize / 2];
     }
 
     return output;

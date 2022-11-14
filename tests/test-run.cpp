@@ -20,10 +20,10 @@ int main(int argc, char const *argv[])
     // shouldThrowErrorWhenFilterSizeIsGreaterThanInputSize();
     // shouldThrowErrorWhenFilterSizeIsLessThanOrEqualToZero();
 
-    // shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided();
-    // shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided();
+    shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided();
+    shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided();
 
-    // shouldReturnPaddedMedianFilteredValuesWithNthSelectWhenInputIsProvided();
+    shouldReturnMedianFilteredValuesWithStdNthElementFunctionWhenInputIsProvided();
     
     std::cout << std::endl << "all tests passed ..." << std::endl;
     return 0;

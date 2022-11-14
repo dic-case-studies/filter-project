@@ -14,6 +14,6 @@ void shouldReturnPaddedAverageFilteredValuesWhenInputIsProvided();
 
 void shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided();
 
-void shouldReturnPaddedMedianFilteredValuesWithNthSelectWhenInputIsProvided();
+void shouldReturnMedianFilteredValuesWithStdNthElementFunctionWhenInputIsProvided();
 
 #endif /* tests_h */

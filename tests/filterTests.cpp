@@ -133,17 +133,17 @@ void shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided(){
 
 }
 
-void shouldReturnPaddedMedianFilteredValuesWithNthSelectWhenInputIsProvided(){
+void shouldReturnMedianFilteredValuesWithStdNthElementFunctionWhenInputIsProvided(){
     int inputSize, filterSize;
 
     inputSize = 10;
     filterSize = 5;
 
     vector<float> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    float expectedOutput[] = {1, 2, 3, 4, 5, 6, 7, 8 , 8, 8};
+    float expectedOutput[] = {0, 0 , 3, 4, 5, 6, 7, 8, 0 , 0};
 
     vector<float> output;
-    output = filter(input, inputSize, filterSize, paddedMedianFilterWithStdNthElement);
+    output = filter(input, inputSize, filterSize, medianFilterWithStdNthElementFunction);
 
     for (int i = 0; i < sizeof(expectedOutput) / sizeof(expectedOutput[0]); i++)
     {
