@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-mkdir -p ./out
+if [ -d ./out ]
+then
+    rm -rf out
+fi 
+
+mkdir ./out
 
 echo "Running make"
-make > /dev/null
+(make clean > /dev/null) && (make FLAGS="-D GRAPHS" > /dev/null)
 
 echo "Running app and recording time"
 ./app > ./out/time.txt

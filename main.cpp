@@ -24,11 +24,11 @@ int main(int argc, char const *argv[])
     int inputSize, filterSize;
 
     // run for different values
-    //    if(argc != 3)
-    //        throw std::invalid_argument("provide both inputs");
-    //
-    //    inputSize = std::atoi(argv[1]);
-    //    filterSize = std::atoi(argv[2]);
+    // if (argc != 3)
+    //     throw std::invalid_argument("provide both inputs");
+
+    // inputSize = std::atoi(argv[1]);
+    // filterSize = std::atoi(argv[2]);
 
     inputSize = 1000;
     filterSize = 9;
@@ -53,6 +53,7 @@ int main(int argc, char const *argv[])
         input[i] = amplitude * sin(2 * M_PI * (frequency / inputSize) * i + shift) + dist(generator);
     }
 
+#ifdef GRAPHS
     // writing input to a file
     std::ofstream InputFile("./out/input.txt");
 
@@ -61,23 +62,36 @@ int main(int argc, char const *argv[])
         InputFile << i << " " << input[i] << endl;
     }
     InputFile.close();
+#endif
 
     std::vector<float> output;
 
+#ifndef GRAPHS
     vector<float> (*filters[])(vector<float>, int, int) = {averageFilter, medianFilter, medianFilterWithStdNthElementFunction};
+    int nFilter = 3;
 
-    int iteration = 1;
-    for (int i = 0; i < iteration; i++)
+    for (int i = 0; i < nFilter; i++)
     {
+#endif
         auto start = std::chrono::high_resolution_clock::now();
-        output = filter(input, inputSize, filterSize, filters[1]);
+#ifndef GRAPHS
+        output = filter(input, inputSize, filterSize, filters[i]);
+#endif
+
+#ifdef GRAPHS  
+        output = filter(input, inputSize, filterSize, medianFilter);      
+#endif
         auto stop = std::chrono::high_resolution_clock::now();
 
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
         std::cout << duration.count() << " us" << std::endl;
-    }
 
+#ifndef GRAPHS    
+    }
+#endif
+
+#ifdef GRAPHS
     // writing to a output
     std::ofstream OutputFile("./out/output.txt");
     for (int i = 0; i < inputSize; i++)
@@ -85,6 +99,7 @@ int main(int argc, char const *argv[])
         OutputFile << i << " " << output[i] << endl;
     }
     OutputFile.close();
+#endif
 
     return 0;
 }

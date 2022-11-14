@@ -5,7 +5,7 @@ all: directories build/main.o build/helpers.o build/filters.o
 	$(CXX) $(CXXFLAGS) -o app ./build/main.o ./build/helpers.o ./build/filters.o
 
 build/main.o: main.cpp ./include/helpers.hpp ./include/filters.hpp
-	$(CXX) $(CXXFLAGS) -c main.cpp -o $@
+	$(CXX) $(CXXFLAGS) $(FLAGS) -c main.cpp -o $@
 
 build/helpers.o: ./src/helpers.cpp 
 	$(CXX) $(CXXFLAGS) -c ./src/helpers.cpp -o $@

@@ -18,6 +18,12 @@ To genrate graphs, run:
 ./generateGraph.sh
 ```
 
+For time benchmarking, run:
+
+```sh
+./timeBenchmarking.sh
+```
+
 ## Performance
 
 -------------
