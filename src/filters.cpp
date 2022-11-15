@@ -15,27 +15,27 @@ vector<float> filter(vector<float> values, int filterSize, vector<float> (*filte
     return filterFunction(values, filterSize);
 }
 
-vector<vector<float>> filter(vector<vector<float>> values, int filterSize, vector<vector<float>> (*filterFunction)(vector<vector<float>>, int))
+// vector<vector<float>> filter(vector<vector<float>> values, int filterSize, vector<vector<float>> (*filterFunction)(vector<vector<float>>, int))
+// {
+//     assert(filterSize <= values.size());
+//     assert(filterSize > 0);
+//     assert((filterSize % 2) != 0);
+
+//     return filterFunction(values, filterSize);
+// }
+
+vector<float> twoDAverageFilter(vector<float> values, int filterSize)
 {
-    assert(filterSize <= values.size());
-    assert(filterSize > 0);
-    assert((filterSize % 2) != 0);
+    // int row = values.size();
+    // int col = values[0].size();
 
-    return filterFunction(values, filterSize);
-}
-
-vector<vector<float>> twoDAverageFilter(vector<vector<float>> values, int filterSize)
-{
-    int row = values.size();
-    int col = values[0].size();
-
-    vector<vector<float>> output(row, vector<float>(col, 0));
+    vector<float> output(values.size(), 0);
 
     float windowSum;
 
-    for (int r = filterSize / 2; r < row - filterSize / 2; r++)
+    for (int r = 0; r < values.size(); r=r+filterSize)
     {
-        for (int c = filterSize / 2; c < col - filterSize / 2; c++)
+        for (int c = 0; c < filterSize / 2; c++)
         {
             windowSum = 0;
 

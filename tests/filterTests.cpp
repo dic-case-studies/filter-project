@@ -103,30 +103,22 @@ TEST(filterTests, shouldReturnMedianFilteredValuesWithStdNthElementFunctionWhenI
 
 TEST(filterTests, shouldReturnAverageTwoDFilteredValuesWhenInputIsProvided)
 {
-    int inputSize, filterSize;
+    int filterSize;
 
-    inputSize = 4;
     filterSize = 3;
 
-    vector<vector<float>> input{{1, 1, 1, 1},
-                                {2, 2, 2, 2},
-                                {3, 3, 3, 3},
-                                {4, 4, 4, 4}};
+    vector<float> input{1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4};
 
-    vector<vector<float>> expectedOutput{{0, 0, 0, 0},
-                                         {0, 2, 2, 0},
-                                         {0, 3, 3, 0},
-                                         {0, 0, 0, 0}};
+    vector<float> expectedOutput{0, 0, 0, 0, 0, 2, 2, 0, 0, 3, 3, 0, 0, 0, 0, 0};
 
-    vector<vector<float>> output;
+    vector<float> output;
 
     output = filter(input, filterSize, twoDAverageFilter);
 
-    for (int i = 0; i < inputSize; i++)
+    EXPECT_EQ(output.size(), expectedOutput.size());
+
+    for (int i = 0; i < output.size(); i++)
     {
-        for (int j = 0; j < inputSize; j++)
-        {
-            EXPECT_EQ(output[i][j], expectedOutput[i][j]);
-        }
+        EXPECT_EQ(output[i], expectedOutput[i]);
     }
 }
