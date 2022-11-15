@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Running make"
-(make clean > /dev/null) && (make > /dev/null)
+(make clean > /dev/null) && (make main-app > /dev/null)
 
 outputFile=timeBenchmarks.txt
 
@@ -19,7 +19,7 @@ echo "Running app for ${iterations} iterations, recording output in $outputFile"
 
 for((i=1; i<=iterations; i++)){
     echo "iteration $i" >> $outputFile
-    ./app >> $outputFile
+    ./benchmark-app >> $outputFile
     echo >> $outputFile
 }
 

@@ -8,10 +8,10 @@ fi
 mkdir ./out
 
 echo "Running make"
-(make clean > /dev/null) && (make FLAGS="-D GRAPHS" > /dev/null)
+(make clean > /dev/null) && (make benchmark-app > /dev/null)
 
 echo "Running app and recording time"
-./app > ./out/time.txt
+./main-app > ./out/time.txt
 
 echo "Creating graphs"
 graph -T png ./out/input.txt > ./out/input.png  

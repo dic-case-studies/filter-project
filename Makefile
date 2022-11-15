@@ -1,11 +1,19 @@
 CXXFLAGS=-O3 -std=c++11 -Wall
 CXX=g++
 
-all: directories build/main.o build/helpers.o build/filters.o
-	$(CXX) $(CXXFLAGS) -o app ./build/main.o ./build/helpers.o ./build/filters.o
+all: benchmark-app main-app
+
+benchmark-app: directories build/benchmark.o build/helpers.o build/filters.o
+	$(CXX) $(CXXFLAGS) ./build/benchmark.o ./build/helpers.o ./build/filters.o -o $@
+
+build/benchmark.o: benchmark.cpp ./include/helpers.hpp ./include/filters.hpp
+	$(CXX) $(CXXFLAGS) -c benchmark.cpp -o $@
+
+main-app: directories build/main.o build/helpers.o build/filters.o
+	$(CXX) $(CXXFLAGS) ./build/main.o ./build/helpers.o ./build/filters.o -o $@
 
 build/main.o: main.cpp ./include/helpers.hpp ./include/filters.hpp
-	$(CXX) $(CXXFLAGS) $(FLAGS) -c main.cpp -o $@
+	$(CXX) $(CXXFLAGS) -c main.cpp -o $@
 
 build/helpers.o: ./src/helpers.cpp 
 	$(CXX) $(CXXFLAGS) -c ./src/helpers.cpp -o $@

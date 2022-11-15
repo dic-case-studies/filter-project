@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
     std::default_random_engine generator;
     std::normal_distribution<float> dist(mean, stddev);
 
-    double amplitude = 5;
+    double amplitude = generateRandomNumberInRange(3,10);
     float frequency = 1; // Hz
     float shift = 0;
 
@@ -51,37 +51,22 @@ int main(int argc, char const *argv[])
         input[i] = amplitude * sin(2 * M_PI * (frequency / inputSize) * i + shift) + dist(generator);
     }
 
-
-    // writing input to a file
-    std::ofstream InputFile("./out/input.txt");
-
-    for (int i = 0; i < inputSize; i++)
-    {
-        InputFile << i << " " << input[i] << endl;
-    }
-    InputFile.close();
-
-
     std::vector<float> output;
 
-    auto start = std::chrono::high_resolution_clock::now();
+    vector<float> (*filters[])(vector<float>, int, int) = {averageFilter, medianFilter, medianFilterWithStdNthElementFunction};
 
-    output = filter(input, inputSize, filterSize, medianFilter);
+    int nFilter = 3;
 
-    auto stop = std::chrono::high_resolution_clock::now();
-
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-
-    std::cout << duration.count() << " us" << std::endl;
-
-
-    // writing to a output
-    std::ofstream OutputFile("./out/output.txt");
-    for (int i = 0; i < inputSize; i++)
+    for (int i = 0; i < nFilter; i++)
     {
-        OutputFile << i << " " << output[i] << endl;
+        auto start = std::chrono::high_resolution_clock::now();
+        output = filter(input, inputSize, filterSize, filters[i]);
+        auto stop = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+        std::cout << duration.count() << " us" << std::endl;
     }
-    OutputFile.close();
 
     return 0;
 }
