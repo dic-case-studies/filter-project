@@ -19,6 +19,45 @@ vector<float> filter(vector<float> values, int inputSize, int filterSize, vector
     return filterFunction(values, inputSize, filterSize);
 }
 
+vector<vector<float>> filter(vector<vector<float>> values, int filterSize, vector<vector<float>> (*filterFunction)(vector<vector<float>>, int))
+{
+    assert(filterSize <= values.size());
+    assert(filterSize > 0);
+    assert((filterSize % 2) != 0);
+
+    return filterFunction(values, filterSize);
+}
+
+vector<vector<float>> twoDAverageFilter(vector<vector<float>> values, int filterSize)
+{
+    int row = values.size();
+    int col = values[0].size();
+
+    vector<vector<float>> output(row, vector<float>(col, 0));
+
+    float windowSum;
+
+    for (int r = filterSize / 2; r < row - filterSize / 2; r++)
+    {
+        for (int c = filterSize / 2; c < col - filterSize / 2; c++)
+        {
+            windowSum = 0;
+
+            for (int rr = 0; rr < filterSize; rr++)
+            {
+                for (int cc = 0; cc < filterSize; cc++)
+                {
+                    windowSum += values[r + rr - 1][c + cc - 1];
+                }
+            }
+
+            output[r][c] = windowSum / (filterSize * filterSize);
+        }
+    }
+
+    return output;
+}
+
 vector<float> averageFilter(vector<float> values, int inputSize, int filterSize)
 {
     vector<float> output(inputSize);

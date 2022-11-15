@@ -1,13 +1,15 @@
 #include "filterTests.hpp"
 
 #include <chrono>
+#include <gtest/gtest.h>
 #include <iostream>
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
     std::cout << "performing tests ..." << std::endl;
 
     shouldReturnAverageFilteredValuesWhenInputIsProvided();
+
     shouldReturnMedianFilteredValuesWhenInputIsProvided();
 
     // shouldThrowErrorWhenFilterSizeIsGreaterThanInputSize();
@@ -19,7 +21,10 @@ int main(int argc, char const *argv[])
     shouldReturnMedianFilteredValuesWithStdNthElementFunctionWhenInputIsProvided();
     
     std::cout << std::endl << "all tests passed ..." << std::endl;
-    return 0;
+
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+
 }
 
 

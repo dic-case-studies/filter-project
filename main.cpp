@@ -14,6 +14,8 @@ using std::cout;
 using std::endl;
 using std::vector;
 
+//TODO : Fix amplitude issue
+//TODO : Remove input size from 1D filters, use vector.size()
 int main(int argc, char const *argv[])
 {
     int inputSize, filterSize;
@@ -33,19 +35,18 @@ int main(int argc, char const *argv[])
 
     // to generate noise
     const float mean = 0.0;
-    const float stddev = 0.2;
+    const float stddev = 0.2;   
     std::default_random_engine generator;
     std::normal_distribution<float> dist(mean, stddev);
 
-    double amplitude = 5;
-    float frequency = 1; // Hz
+    double amplitude = 10;
+    float frequency = 2; // Hz
     float shift = 0;
 
     for (int i = 0; i < inputSize; i++)
     {
         input[i] = amplitude * sin(2 * M_PI * (frequency / inputSize) * i + shift) + dist(generator);
     }
-
 
     // writing input to a file
     std::ofstream InputFile("./out/input.txt");

@@ -5,6 +5,12 @@
 
 std::vector<float> filter(std::vector<float> values, int inputSize, int filterSize, std::vector<float> (*filterFunction)(std::vector<float>, int, int));
 
+
+std::vector<std::vector<float>> filter(std::vector<std::vector<float>> values, int filterSize, std::vector<std::vector<float>> (*filterFunction)(std::vector<std::vector<float>>, int));
+
+
+std::vector<std::vector<float>> twoDAverageFilter(std::vector<std::vector<float>> values, int filterSize);
+
 std::vector<float> averageFilter(std::vector<float> values, int inputSize, int filterSize);
 
 std::vector<float> paddedAverageFilter(std::vector<float> values, int inputSize, int filterSize);
