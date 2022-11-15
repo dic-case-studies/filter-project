@@ -1,6 +1,5 @@
-
-#ifndef tests_hpp
-#define tests_hpp
+#ifndef tests_filterTests_hpp
+#define tests_filterTests_hpp
 
 void shouldReturnAverageFilteredValuesWhenInputIsProvided();
 
@@ -16,4 +15,4 @@ void shouldReturnPaddedMedianFilteredValuesWhenInputIsProvided();
 
 void shouldReturnMedianFilteredValuesWithStdNthElementFunctionWhenInputIsProvided();
 
-#endif /* tests_h */
+#endif /* tests_filterTests_hpp */

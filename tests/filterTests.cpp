@@ -1,10 +1,7 @@
+#include "filters.hpp"
 
-#include "../include/filters.hpp"
 #include <assert.h>
 #include <vector>
-
-// #include <gtest/gtest.h>
-// #include <benchmark/benchmark.h>
 
 using std::vector;
 

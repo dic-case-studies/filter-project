@@ -1,5 +1,5 @@
-#ifndef helpers_hpp
-#define helpers_hpp
+#ifndef include_helpers_hpp
+#define include_helpers_hpp
 
 #include <vector>
 
@@ -15,4 +15,4 @@ void quickSort(std::vector<float> window, int start, int back);
 
 float findMedian(std::vector<float> window,  int start, int back,  int medianIndex);
 
-#endif /* helpers_hpp */
+#endif /* include_helpers_hpp */

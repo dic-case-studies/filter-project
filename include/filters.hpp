@@ -1,7 +1,5 @@
-// 1D median filter implementation
-
-#ifndef filters_h
-#define filters_h
+#ifndef include_filters_hpp
+#define include_filters_hpp
 
 #include <vector>
 
@@ -17,4 +15,4 @@ std::vector<float> paddedMedianFilter(std::vector<float> values, int inputSize, 
 
 std::vector<float> medianFilterWithStdNthElementFunction(std::vector<float> values, int inputSize, int filterSize);
 
-#endif // filters_h
+#endif /* include_filters_hpp */

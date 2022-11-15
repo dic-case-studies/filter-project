@@ -1,4 +1,4 @@
-CXXFLAGS=-O3 -std=c++11 -Wall
+CXXFLAGS=-O3 -std=c++17 -Wall -I ./include
 CXX=g++
 
 all: benchmark-app main-app

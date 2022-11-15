@@ -1,8 +1,7 @@
-
-#include <iostream>
 #include <algorithm>
-#include <vector>
+#include <iostream>
 #include <iterator>
+#include <vector>
 
 using std::cout;
 using std::endl;
@@ -37,27 +36,8 @@ void insertionSort(vector<float> vec)
     }
 }
 
-// Standard Lomuto's partition
-// vector<float>::iterator partition(vector<float> arr, vector<float>::iterator start, vector<float>::iterator back)
-// {
-//     vector<float>::iterator pivot = back;
-//     vector<float>::iterator index = start;
-
-//     for (auto it = start; it != back; ++it)
-//     {
-//         if (*it <= *pivot)
-//         {
-//             std::swap(index, it);
-//             index++;
-//         }
-//     }
-//     std::swap(index, pivot);
-//     return index;
-// }
-
 int partition(vector<float> v, int start, int end)
 {
-
     int pivot = end;
     int j = start;
     for (int i = start; i < end; ++i)

@@ -1,14 +1,7 @@
-// 1D average and average filter implementation
-// Time: O(n)
-// Space: O(n) corrresponding to input size
-// by Maneesh Sutar
-
-#include <iostream>
-#include <chrono>
-
-#include "../include/helpers.hpp"
-#include "../include/filters.hpp"
 #include "filterTests.hpp"
+
+#include <chrono>
+#include <iostream>
 
 int main(int argc, char const *argv[])
 {

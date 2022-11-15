@@ -1,19 +1,14 @@
-// 1D average and average filter implementation
-// Time: O(n)
-// Space: O(n) corrresponding to input size
-// by Maneesh Sutar
+#include "filters.hpp"
+#include "helpers.hpp"
 
-#include <iostream>
-#include <fstream>
 #include <chrono>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <math.h>
+#include <random>
 #include <string.h>
 #include <vector>
-#include <math.h>
-#include <iterator>
-#include <random>
-
-#include "./include/helpers.hpp"
-#include "./include/filters.hpp"
 
 using std::cout;
 using std::endl;

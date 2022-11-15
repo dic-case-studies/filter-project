@@ -1,14 +1,8 @@
-// 1D median filter implementation
-// Time: O(n)
-// Space: O(n) corrresponding to input size
-// by Maneesh Sutar
+#include "helpers.hpp"
 
-#include <vector>
 #include <algorithm>
 #include <assert.h>
-// #include <iostream>
-
-#include "../include/helpers.hpp"
+#include <vector>
 
 using std::vector;
 
