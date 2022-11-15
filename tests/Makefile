@@ -1,10 +1,10 @@
-CXXFLAGS=-std=c++11 -Wall -g -I ../include -l gtest
+CXXFLAGS=-std=c++11 -Wall -g -I ../include
 CXX=g++
 
 all: directories ./test-build/test-run.o ./test-build/helpers.o ./test-build/filters.o ./test-build/filterTests.o
-	$(CXX) $(CXXFLAGS) ./test-build/test-run.o ./test-build/helpers.o ./test-build/filters.o test-build/filterTests.o -o test-app 
+	$(CXX) $(CXXFLAGS) ./test-build/test-run.o ./test-build/helpers.o ./test-build/filters.o test-build/filterTests.o  -l gtest -o test-app 
 
-./test-build/test-run.o: test-run.cpp ../include/helpers.hpp ../include/filters.hpp filterTests.hpp
+./test-build/test-run.o: test-run.cpp ../include/helpers.hpp ../include/filters.hpp
 	$(CXX) $(CXXFLAGS) -c test-run.cpp -o $@
 
 ./test-build/helpers.o: ../src/helpers.cpp 
