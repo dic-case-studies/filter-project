@@ -48,14 +48,14 @@ int main(int argc, char const *argv[])
 
     std::vector<float> output;
 
-    vector<float> (*filters[])(vector<float>, int, int) = {averageFilter, medianFilter, medianFilterWithStdNthElementFunction};
+    vector<float> (*filters[])(vector<float>, int) = {averageFilter, medianFilter, medianFilterWithStdNthElementFunction};
 
     int nFilter = 3;
 
     for (int i = 0; i < nFilter; i++)
     {
         auto start = std::chrono::high_resolution_clock::now();
-        output = filter(input, inputSize, filterSize, filters[i]);
+        output = filter(input, filterSize, filters[i]);
         auto stop = std::chrono::high_resolution_clock::now();
 
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);

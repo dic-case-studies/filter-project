@@ -14,8 +14,7 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-//TODO : Fix amplitude issue
-//TODO : Remove input size from 1D filters, use vector.size()
+// TODO: Fix random amplitude issue
 int main(int argc, char const *argv[])
 {
     int inputSize, filterSize;
@@ -40,7 +39,7 @@ int main(int argc, char const *argv[])
     std::normal_distribution<float> dist(mean, stddev);
 
     double amplitude = 10;
-    float frequency = 2; // Hz
+    float frequency = 3; // Hz
     float shift = 0;
 
     for (int i = 0; i < inputSize; i++)
@@ -62,7 +61,7 @@ int main(int argc, char const *argv[])
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    output = filter(input, inputSize, filterSize, medianFilter);
+    output = filter(input, filterSize, medianFilter);
 
     auto stop = std::chrono::high_resolution_clock::now();
 

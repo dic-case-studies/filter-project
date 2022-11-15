@@ -6,17 +6,13 @@
 
 using std::vector;
 
-vector<float> filter(vector<float> values, int inputSize, int filterSize, vector<float> (*filterFunction)(vector<float>, int, int))
+vector<float> filter(vector<float> values, int filterSize, vector<float> (*filterFunction)(vector<float>, int))
 {
-    // if (filterSize > inputSize)
-    //     throw std::invalid_argument("filterSize should be less than or equal to inputSize\n");
-    // if (filterSize <= 0)
-    //     throw std::invalid_argument("filterSize should be greater than zero\n");
-    assert(filterSize <= inputSize);
+    assert(filterSize <= values.size());
     assert(filterSize > 0);
     assert((filterSize % 2) != 0);
 
-    return filterFunction(values, inputSize, filterSize);
+    return filterFunction(values, filterSize);
 }
 
 vector<vector<float>> filter(vector<vector<float>> values, int filterSize, vector<vector<float>> (*filterFunction)(vector<vector<float>>, int))
@@ -58,9 +54,9 @@ vector<vector<float>> twoDAverageFilter(vector<vector<float>> values, int filter
     return output;
 }
 
-vector<float> averageFilter(vector<float> values, int inputSize, int filterSize)
+vector<float> averageFilter(vector<float> values, int filterSize)
 {
-    vector<float> output(inputSize);
+    vector<float> output(values.size());
 
     float currentFilteredValue = 0;
     int paddingWidth = filterSize / 2;
@@ -73,7 +69,7 @@ vector<float> averageFilter(vector<float> values, int inputSize, int filterSize)
     output[paddingWidth] = currentFilteredValue / filterSize;
 
     // from 2nd filter value
-    for (int i = filterSize; i < inputSize; i++)
+    for (int i = filterSize; i < values.size(); i++)
     {
         currentFilteredValue = currentFilteredValue - values[i - filterSize] + values[i];
         output[i - paddingWidth] = currentFilteredValue / filterSize;
@@ -83,9 +79,9 @@ vector<float> averageFilter(vector<float> values, int inputSize, int filterSize)
 }
 
 // input padded
-vector<float> paddedAverageFilter(vector<float> values, int inputSize, int filterSize)
+vector<float> paddedAverageFilter(vector<float> values, int filterSize)
 {
-    int outputSize = inputSize;
+    int outputSize = values.size();
     int paddedInputSize = outputSize + filterSize - 1;
     int paddingWidth = filterSize / 2;
 
@@ -94,7 +90,7 @@ vector<float> paddedAverageFilter(vector<float> values, int inputSize, int filte
 
     for (int i = 0; i < paddedInputSize; i++)
     {
-        if (i < paddingWidth || i >= (inputSize + paddingWidth))
+        if (i < paddingWidth || i >= (values.size() + paddingWidth))
         {
             paddedValues[i] = 0;
             continue;
@@ -121,15 +117,15 @@ vector<float> paddedAverageFilter(vector<float> values, int inputSize, int filte
     return output;
 }
 
-vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
+vector<float> medianFilter(vector<float> values, int filterSize)
 {
-    vector<float> output(inputSize);
+    vector<float> output(values.size());
 
     int paddingWidth = filterSize / 2;
 
     vector<float> window(filterSize);
 
-    for (int i = 0; i < (inputSize - filterSize + 1); i++)
+    for (int i = 0; i < (values.size() - filterSize + 1); i++)
     {
         for (int j = 0; j < filterSize; j++)
         {
@@ -150,9 +146,9 @@ vector<float> medianFilter(vector<float> values, int inputSize, int filterSize)
 }
 
 // input paded
-vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filterSize)
+vector<float> paddedMedianFilter(vector<float> values, int filterSize)
 {
-    int outputSize = inputSize;
+    int outputSize = values.size();
     int paddedInputSize = outputSize + filterSize - 1;
     int paddingWidth = filterSize / 2;
 
@@ -163,7 +159,7 @@ vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filter
 
     for (int i = 0; i < paddedInputSize; i++)
     {
-        if (i < paddingWidth || i >= (inputSize + paddingWidth))
+        if (i < paddingWidth || i >= (values.size() + paddingWidth))
         {
             paddedValues[i] = 0;
             continue;
@@ -186,15 +182,15 @@ vector<float> paddedMedianFilter(vector<float> values, int inputSize, int filter
     return output;
 }
 
-vector<float> medianFilterWithStdNthElementFunction(vector<float> values, int inputSize, int filterSize)
+vector<float> medianFilterWithStdNthElementFunction(vector<float> values, int filterSize)
 {
-    vector<float> output(inputSize);
+    vector<float> output(values.size());
 
     int paddingWidth = filterSize / 2;
 
     vector<float> window(filterSize);
 
-    for (int i = 0; i < (inputSize - filterSize + 1); i++)
+    for (int i = 0; i < (values.size() - filterSize + 1); i++)
     {
         for (int j = 0; j < filterSize; j++)
         {
