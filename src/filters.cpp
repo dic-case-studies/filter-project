@@ -45,6 +45,34 @@ vector<float> twoDAverageFilter(vector<float> values, int filterSize)
     return output;
 }
 
+vector<float> twoDMedianFilter(vector<float> values, int filterSize)
+{
+    int inputWidthSize = sqrt(values.size());
+
+    vector<float> output(values.size(), 0);
+
+    vector<float> window(filterSize * filterSize);
+
+    for (int r = 0; r <= inputWidthSize - filterSize; r++)
+    {
+        for (int c = 0; c <= inputWidthSize - filterSize; c++)
+        {
+
+            for (int rr = r; rr < r + filterSize; rr++)
+            {
+                for (int cc = c; cc < c + filterSize; cc++)
+                {
+                    window[(rr-r)*filterSize + (cc -c)] = values[rr * inputWidthSize + cc];
+                }
+            }
+            sort(window.begin(),window.end());
+            output[((r + 1) * inputWidthSize) * (filterSize / 2) + c + filterSize / 2]  = window[(filterSize * filterSize)/2];
+        }
+    }
+
+    return output;
+}
+
 vector<float> averageFilter(vector<float> values, int filterSize)
 {
     vector<float> output(values.size());
