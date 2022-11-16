@@ -7,7 +7,7 @@ benchmark-app: directories build/benchmark.o build/helpers.o build/filters.o
 	$(CXX) $(CXXFLAGS) ./build/benchmark.o ./build/helpers.o ./build/filters.o -o $@
 
 build/benchmark.o: benchmark.cpp ./include/helpers.hpp ./include/filters.hpp
-	$(CXX) $(CXXFLAGS) -c benchmark.cpp -o $@
+	$(CXX) $(CXXFLAGS) $(FLAG) -c benchmark.cpp -o $@
 
 main-app: directories build/main.o build/helpers.o build/filters.o
 	$(CXX) $(CXXFLAGS) ./build/main.o ./build/helpers.o ./build/filters.o -o $@

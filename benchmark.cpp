@@ -20,20 +20,25 @@ int main(int argc, char const *argv[])
 {
     int inputSize, filterSize;
 
-    // run for different values
-    // if (argc != 3)
-    //     throw std::invalid_argument("provide both inputs");
+    if (argc != 3)
+        throw std::invalid_argument("provide both inputs");
 
-    // inputSize = std::atoi(argv[1]);
-    // filterSize = std::atoi(argv[2]);
+    inputSize = std::atoi(argv[1]);
+    filterSize = std::atoi(argv[2]);
 
-    inputSize = 100;
-    filterSize = 9;
+    // inputSize = 100;
+    // filterSize = 9;
+#ifdef TWOD
+    vector<vector<float> (*)(vector<float>, int)> filters {twoDAverageFilter,twoDMedianFilter};
+    // std::vector<float> input(inputSize * inputSize);
+#else
+    vector<vector<float> (*)(vector<float>, int)> filters {averageFilter, medianFilter, medianFilterWithStdNthElementFunction};
+#endif
 
-    std::vector<float> input(inputSize);
     srand((unsigned)time(0));
 
     // to generate noise
+    std::vector<float> input(inputSize);
     const float mean = 0.0;
     const float stddev = 0.2;
     std::default_random_engine generator;
@@ -49,8 +54,6 @@ int main(int argc, char const *argv[])
     }
 
     std::vector<float> output;
-
-    vector<vector<float> (*)(vector<float>, int)> filters {averageFilter,medianFilter,medianFilterWithStdNthElementFunction,twoDAverageFilter,twoDMedianFilter};
 
     for (int i = 0; i < filters.size(); i++)
     {
