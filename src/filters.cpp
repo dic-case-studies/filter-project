@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <assert.h>
+#include <math.h>
 #include <vector>
 
 using std::vector;
@@ -15,39 +16,29 @@ vector<float> filter(vector<float> values, int filterSize, vector<float> (*filte
     return filterFunction(values, filterSize);
 }
 
-// vector<vector<float>> filter(vector<vector<float>> values, int filterSize, vector<vector<float>> (*filterFunction)(vector<vector<float>>, int))
-// {
-//     assert(filterSize <= values.size());
-//     assert(filterSize > 0);
-//     assert((filterSize % 2) != 0);
-
-//     return filterFunction(values, filterSize);
-// }
-
 vector<float> twoDAverageFilter(vector<float> values, int filterSize)
 {
-    // int row = values.size();
-    // int col = values[0].size();
+    int inputWidthSize = sqrt(values.size());
 
     vector<float> output(values.size(), 0);
 
     float windowSum;
 
-    for (int r = 0; r < values.size(); r=r+filterSize)
+    for (int r = 0; r <= inputWidthSize - filterSize; r++)
     {
-        for (int c = 0; c < filterSize / 2; c++)
+        for (int c = 0; c <= inputWidthSize - filterSize; c++)
         {
             windowSum = 0;
 
-            for (int rr = 0; rr < filterSize; rr++)
+            for (int rr = r; rr < r + filterSize; rr++)
             {
-                for (int cc = 0; cc < filterSize; cc++)
+                for (int cc = c; cc < c + filterSize; cc++)
                 {
-                    windowSum += values[r + rr - 1][c + cc - 1];
+                    windowSum += values[rr * inputWidthSize + cc];
                 }
             }
 
-            output[r][c] = windowSum / (filterSize * filterSize);
+            output[((r + 1) * inputWidthSize) * (filterSize / 2) + c + filterSize / 2]  = windowSum / (filterSize * filterSize);
         }
     }
 
