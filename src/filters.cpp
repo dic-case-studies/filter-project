@@ -38,7 +38,7 @@ vector<float> twoDAverageFilter(vector<float> values, int filterSize)
                 }
             }
 
-            output[((r + 1) * inputWidthSize) * (filterSize / 2) + c + filterSize / 2]  = windowSum / (filterSize * filterSize);
+            output[((r + (filterSize / 2)) * inputWidthSize)  + c + filterSize / 2]  = windowSum / (filterSize * filterSize);
         }
     }
 
@@ -66,7 +66,7 @@ vector<float> twoDMedianFilter(vector<float> values, int filterSize)
                 }
             }
             sort(window.begin(),window.end());
-            output[((r + 1) * inputWidthSize) * (filterSize / 2) + c + filterSize / 2]  = window[(filterSize * filterSize)/2];
+            output[((r + (filterSize / 2)) * inputWidthSize)  + c + filterSize / 2]  = window[(filterSize * filterSize)/2];
         }
     }
 

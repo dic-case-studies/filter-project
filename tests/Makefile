@@ -1,4 +1,4 @@
-CXXFLAGS=-std=c++11 -Wall -g -I ../include
+CXXFLAGS=-std=c++14 -Wall -g -I ../include -fsanitize=address
 CXX=g++
 
 all: directories ./test-build/test-run.o ./test-build/helpers.o ./test-build/filters.o ./test-build/filterTests.o

@@ -14,6 +14,8 @@ using std::cout;
 using std::endl;
 using std::vector;
 
+Timer stop_watch;
+
 int main(int argc, char const *argv[])
 {
     int inputSize, filterSize;
@@ -25,7 +27,7 @@ int main(int argc, char const *argv[])
     // inputSize = std::atoi(argv[1]);
     // filterSize = std::atoi(argv[2]);
 
-    inputSize = 1000;
+    inputSize = 100;
     filterSize = 9;
 
     std::vector<float> input(inputSize);
@@ -48,19 +50,17 @@ int main(int argc, char const *argv[])
 
     std::vector<float> output;
 
-    vector<float> (*filters[])(vector<float>, int) = {averageFilter, medianFilter, medianFilterWithStdNthElementFunction};
+    vector<vector<float> (*)(vector<float>, int)> filters {averageFilter,medianFilter,medianFilterWithStdNthElementFunction,twoDAverageFilter,twoDMedianFilter};
 
-    int nFilter = 3;
-
-    for (int i = 0; i < nFilter; i++)
+    for (int i = 0; i < filters.size(); i++)
     {
-        auto start = std::chrono::high_resolution_clock::now();
+        stop_watch.start_timer();
         output = filter(input, filterSize, filters[i]);
-        auto stop = std::chrono::high_resolution_clock::now();
+        stop_watch.stop_timer();
 
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+        auto duration = stop_watch.time_elapsed();
 
-        std::cout << duration.count() << " us" << std::endl;
+        std::cout << duration << " us" << std::endl;
     }
 
     return 0;

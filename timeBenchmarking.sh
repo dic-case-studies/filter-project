@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Running make"
-(make clean > /dev/null) && (make main-app > /dev/null)
+(make clean > /dev/null) && (make > /dev/null)
 
 outputFile=timeBenchmarks.txt
 
@@ -12,7 +12,7 @@ fi
 
 iterations=$1
 
-echo "Sequence of the filters: averageFilter, medianFilter, medianFilterWithStdNthElementFunction" >> $outputFile
+echo "Sequence of the filters: averageFilter, medianFilter, medianFilterWithStdNthElementFunction twoDAverageFilter twoDMedianFilter" >> $outputFile
 echo >> $outputFile
 
 echo "Running app for ${iterations} iterations, recording output in $outputFile"
