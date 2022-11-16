@@ -9,7 +9,7 @@ To build and run the project:
 
 ```sh
 make clean && make
-./app
+./main-app
 ```
 
 To genrate graphs, run:
@@ -21,7 +21,7 @@ To genrate graphs, run:
 For time benchmarking, run:
 
 ```sh
-./timeBenchmarking.sh
+./timeBenchmarking.sh <no.of iterations> <input size> <filter size>
 ```
 
 ## Performance
