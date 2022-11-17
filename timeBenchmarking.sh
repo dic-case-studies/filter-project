@@ -11,6 +11,7 @@ then
 fi
 
 iterations=$1
+# iterations=1
 inputSize=$2
 filterSize=$3
 
@@ -26,18 +27,18 @@ for((i=1; i<=iterations; i++)){
 }
 
 echo "Done"
-echo "--------------------------------------------" >> $outputFile
-echo "Sequence of the filters: averageFilter, medianFilter, medianFilterWithStdNthElementFunction " >> $outputFile
-(make clean > /dev/null) && (make > /dev/null)
+# echo "--------------------------------------------" >> $outputFile
+# echo "Sequence of the filters: averageFilter, medianFilter, medianFilterWithStdNthElementFunction " >> $outputFile
+# (make clean > /dev/null) && (make > /dev/null)
 
-echo >> $outputFile
+# echo >> $outputFile
 
-echo "Running app for ${iterations} iterations, recording output in $outputFile"
+# echo "Running app for ${iterations} iterations, recording output in $outputFile"
 
-for((i=1; i<=iterations; i++)){
-    echo "iteration $i" >> $outputFile
-    ./benchmark-app ${inputSize} ${filterSize} >> $outputFile
-    echo >> $outputFile
-}
+# for((i=1; i<=iterations; i++)){
+#     echo "iteration $i" >> $outputFile
+#     ./benchmark-app ${inputSize} ${filterSize} >> $outputFile
+#     echo >> $outputFile
+# }
 
-echo "Done"
+# echo "Done"

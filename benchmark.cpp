@@ -35,7 +35,8 @@ int main(int argc, char const *argv[])
     vector<vector<float> (*)(vector<float>, int)> filters {averageFilter, medianFilter, medianFilterWithStdNthElementFunction};
 #endif
 
-    srand((unsigned)time(0));
+    // srand((unsigned)time(0));
+    srand(1);
 
     // to generate noise
     std::vector<float> input(inputSize);

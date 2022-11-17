@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <math.h>
 #include <vector>
+#include <omp.h>
 
 using std::vector;
 
@@ -19,31 +20,46 @@ vector<float> filter(vector<float> values, int filterSize, vector<float> (*filte
 vector<float> twoDAverageFilter(vector<float> values, int filterSize)
 {
     int inputWidthSize = sqrt(values.size());
-
+    // int resSize = inputWidthSize - filterSize;
     vector<float> output(values.size(), 0);
 
-    float windowSum;
-
-    for (int r = 0; r <= inputWidthSize - filterSize; r++)
+    #pragma omp parallel default(none) shared(values, output, inputWidthSize, filterSize)
     {
-        for (int c = 0; c <= inputWidthSize - filterSize; c++)
+        #pragma omp for
+        for (int r = 0; r <= inputWidthSize - filterSize; r++)
         {
-            windowSum = 0;
-
-            for (int rr = r; rr < r + filterSize; rr++)
+            for (int c = 0; c <= inputWidthSize - filterSize; c++)
             {
-                for (int cc = c; cc < c + filterSize; cc++)
-                {
-                    windowSum += values[rr * inputWidthSize + cc];
-                }
-            }
+                float windowSum = 0;
 
-            output[((r + (filterSize / 2)) * inputWidthSize)  + c + filterSize / 2]  = windowSum / (filterSize * filterSize);
+                for (int rr = r; rr < r + filterSize; rr++)
+                {
+                    for (int cc = c; cc < c + filterSize; cc++)
+                    {
+                        windowSum += values[rr * inputWidthSize + cc];
+                    }
+                }
+
+                output[((r + (filterSize / 2)) * inputWidthSize)  + c + filterSize / 2]  = windowSum / (filterSize * filterSize);
+            }
         }
     }
 
     return output;
 }
+
+/*
+    1. MPI - Distribution Computing
+    2. OpenMP - Multicore Process
+    3. SIMD REgisters - Data Paralleism
+    4. Instruction Level Parallelism
+    
+    SSE2 - 128 bit register
+    SSE4
+    AVX  - 256 bit register
+    AVX2
+    AVX512
+*/
 
 vector<float> twoDMedianFilter(vector<float> values, int filterSize)
 {
@@ -51,13 +67,12 @@ vector<float> twoDMedianFilter(vector<float> values, int filterSize)
 
     vector<float> output(values.size(), 0);
 
-    vector<float> window(filterSize * filterSize);
-
+    #pragma omp parallel for default(none) shared(output, values, filterSize, inputWidthSize)
     for (int r = 0; r <= inputWidthSize - filterSize; r++)
     {
         for (int c = 0; c <= inputWidthSize - filterSize; c++)
         {
-
+            vector<float> window(filterSize * filterSize);
             for (int rr = r; rr < r + filterSize; rr++)
             {
                 for (int cc = c; cc < c + filterSize; cc++)

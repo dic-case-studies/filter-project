@@ -1,4 +1,5 @@
-CXXFLAGS=-O3 -std=c++14 -Wall -I ./include
+CXXFLAGS=-O3 -std=c++14 -Wall -I ./include -F /usr/local/opt/libomp/include -L /usr/local/opt/libomp/lib -Xpreprocessor -fopenmp -lomp
+# CXX=/usr/local/bin/g++-12
 CXX=g++
 
 all: benchmark-app main-app
